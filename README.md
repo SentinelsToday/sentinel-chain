@@ -1,39 +1,37 @@
 # sentinel-chain
 
-**Solana Anchor attestation programs.**
+**Solana attestation-anchoring program for Sentinel Labs.** Encodes the borsh instruction + state schema for anchoring sha256 digests of [`sentinel-core`](https://github.com/Sentinels-Today/sentinel-core) attestation claims on-chain.
 
-- Language: Rust
-- License: Apache 2.0
-- Status: Pre-alpha
+[![ci](https://github.com/Sentinels-Today/sentinel-chain/actions/workflows/ci.yml/badge.svg)](https://github.com/Sentinels-Today/sentinel-chain/actions/workflows/ci.yml)
+![license](https://img.shields.io/badge/license-Apache--2.0-blue)
+![rust](https://img.shields.io/badge/rust-1.75%2B-orange)
 
-## Overview
+## What's here
 
-Optional on-chain anchoring for cross-organizational trust. Provides attestation root hash publishing, trust score anchoring, and decentralized identity resolution.
+- `state.rs` — `AttestationAnchor` PDA layout (borsh-serialized), versioned and validated
+- `instruction.rs` — `SentinelInstruction::{AnchorAttestation, CloseAttestation}` enum
+- `program.rs` — Solana entrypoint, gated behind the `solana` feature so host tooling builds cleanly without the Solana SDK
+- CI: ubuntu/macos/windows fmt + clippy + tests (host build with default features)
 
-## About Sentinel Labs
+PDA seeds: `["anchor", subject_did, claim_digest]`.
 
-Our mission is to support the entire autonomous systems ecosystem.
+## Build
 
-Identity, attestation, telemetry, and audit are our focus points. Cryptography and openness are baked into the core of everything we do.
+Host (CI, off-chain tooling):
 
-## Ecosystem
+```sh
+cargo build
+cargo test
+```
 
-- [sentinel-core](https://github.com/SentinelsToday/sentinel-core) -- Trust engine
-- [sentinel-agent](https://github.com/SentinelsToday/sentinel-agent) -- On-device daemon
-- [sentinel-cloud](https://github.com/SentinelsToday/sentinel-cloud) -- Fleet management API
-- [sentinel-chain](https://github.com/SentinelsToday/sentinel-chain) -- Solana attestation
-- [sentinel-sdk](https://github.com/SentinelsToday/sentinel-sdk) -- Multi-language SDK
-- [sentinel-cli](https://github.com/SentinelsToday/sentinel-cli) -- Command-line tool
-- [sentinel-dashboard](https://github.com/SentinelsToday/sentinel-dashboard) -- Web UI
-- [sentinel-firmware](https://github.com/SentinelsToday/sentinel-firmware) -- TPM firmware
-- [sentinel-docs](https://github.com/SentinelsToday/sentinel-docs) -- Documentation
+On-chain (Solana BPF / SBF):
 
-## Resources
+```sh
+cargo build-sbf --features solana
+```
 
-- Website: https://sentinels.today
-- Docs: https://sentinels.today/docs
-- X: @sentinelstoday
+The on-chain program ID placeholder is `Sent1nelChain111111111111111111111111111111`. Replace before deploying.
 
----
+## License
 
-Built with care and intent.
+Apache-2.0 — see [LICENSE](./LICENSE).

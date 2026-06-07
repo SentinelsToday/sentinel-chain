@@ -1,0 +1,34 @@
+[package]
+name = "sentinel-chain"
+version = "0.1.0"
+edition = "2021"
+license = "Apache-2.0"
+repository = "https://github.com/Sentinels-Today/sentinel-chain"
+homepage = "https://sentinels.today"
+authors = ["Sentinel Labs <hello@sentinels.today>"]
+description = "Solana on-chain attestation anchoring program for Sentinel Labs."
+rust-version = "1.75"
+readme = "README.md"
+
+[lib]
+name = "sentinel_chain"
+crate-type = ["cdylib", "rlib"]
+path = "src/lib.rs"
+
+[features]
+# Default keeps the crate Solana-SDK-free so CI on stock Rust compiles fast.
+# Enable `solana` (via `cargo build --features solana`, or via `cargo build-sbf`)
+# to pull in the on-chain entrypoint.
+default = []
+solana = ["dep:solana-program"]
+no-entrypoint = []
+
+[dependencies]
+borsh = { version = "1.5", features = ["derive"] }
+thiserror = "1.0"
+solana-program = { version = "1.18", optional = true }
+
+[profile.release]
+overflow-checks = true
+lto = "fat"
+codegen-units = 1
