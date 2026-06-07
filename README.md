@@ -1,6 +1,6 @@
 # sentinel-chain
 
-**Solana attestation-anchoring program for Sentinel Labs.** Encodes the borsh instruction + state schema for anchoring sha256 digests of [`sentinel-core`](https://github.com/Sentinels-Today/sentinel-core) attestation claims on-chain.
+**Solana attestation-anchoring program for Sentinels.** Encodes the borsh instruction + state schema for anchoring sha256 digests of [`sentinel-core`](https://github.com/Sentinels-Today/sentinel-core) attestation claims on-chain.
 
 [![ci](https://github.com/Sentinels-Today/sentinel-chain/actions/workflows/ci.yml/badge.svg)](https://github.com/Sentinels-Today/sentinel-chain/actions/workflows/ci.yml)
 ![license](https://img.shields.io/badge/license-Apache--2.0-blue)
